@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
+import "syncommit/cmd"
 
 func main() {
-	fmt.Println("Hello, syncommit!")
+	cmd.Execute()
 }
