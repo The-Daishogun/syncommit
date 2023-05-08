@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ $(git config --get remote.origin.url) == *"github"* ]]; then
+  echo "skipping sync commit since remote is github."
+  exit 0
+fi
 commit_message=$(git log -n 1 HEAD --pretty=format:%s)
 branch_name=$(git branch --show-current)
 repo_name=$(basename -s .git `git config --get remote.origin.url`)
