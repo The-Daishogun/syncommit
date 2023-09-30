@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
-	"syncommit/utils"
+	"syncommit/structs"
 
 	"github.com/spf13/cobra"
 )
@@ -23,7 +23,7 @@ var commitCommand = &cobra.Command{
 	Short: "Add a commit to the sync repo",
 	Long:  `Add a commit to the sync repo`,
 	Run: func(cmd *cobra.Command, args []string) {
-		err := os.Chdir(utils.RepoPath)
+		err := os.Chdir(structs.RepoPath)
 		if err != nil {
 			log.Fatal("failed to cd into repo directory. ", err.Error())
 		}
