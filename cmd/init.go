@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"syncommit/scripts"
+	"syncommit/structs"
 	"syncommit/utils"
 
 	"github.com/spf13/cobra"
@@ -17,11 +18,11 @@ var initCommand = &cobra.Command{
 	Use:   "init",
 	Short: "setup the current repository to sync with github",
 	Run: func(cmd *cobra.Command, args []string) {
-		privateRepoFound, err := utils.SearchDir(utils.ConfigFolderPath, utils.RepoLocation)
+		privateRepoFound, err := utils.SearchDir(structs.ConfigFolderPath, structs.RepoLocation)
 		if err != nil {
 			log.Fatal("failed to read directory")
 		}
-		privateRepoUrlFound, err := utils.SearchDir(utils.ConfigFolderPath, utils.RepoFileName)
+		privateRepoUrlFound, err := utils.SearchDir(structs.ConfigFolderPath, structs.RepoFileName)
 		if err != nil {
 			log.Fatal("failed to read directory")
 		}
