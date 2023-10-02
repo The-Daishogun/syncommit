@@ -24,7 +24,7 @@ var syncCommand = &cobra.Command{
 		syncedCommits := syncRepo.GetRepoCommitsForCurrentAuthor()
 		commitsToSync := utils.FilterSyncedCommits(allCommits, syncedCommits)
 		for _, commit := range commitsToSync {
-			err := commit.Commit(branchName, repo.Name)
+			err := commit.Commit(repo.BranchName, repo.Name)
 			if err != nil {
 				log.Fatal("failed to sync repo.\nError: ", err.Error())
 			}

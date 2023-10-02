@@ -23,12 +23,19 @@ jobs:
           - goarch: arm64
             goos: windows
     steps:
-      - uses: actions/checkout@v3
-      - uses: wangyoucao577/go-release-action@v1
+      
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set version
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      
+      - name: Build syncommit
+        uses: wangyoucao577/go-release-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
-          ldflags: "-w -s"
-          build_flags: "-gcflags=all='-l -B -C'"
+          build_command: "make"
+          build_flags: "build version {{ env.RELEASE_VERSION }}"
           md5sum: FALSE
