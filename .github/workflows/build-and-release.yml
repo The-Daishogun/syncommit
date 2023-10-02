@@ -23,12 +23,23 @@ jobs:
           - goarch: arm64
             goos: windows
     steps:
-      - uses: actions/checkout@v3
-      - uses: wangyoucao577/go-release-action@v1
+      
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      
+      - name: Read version from release.json
+        uses: notiz-dev/github-action-json-property@release
+        id: syncommit_version
+        with:
+          path: 'release.json'
+          prop_path: 'version'
+
+      - name: Build syncommit
+        uses: wangyoucao577/go-release-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
-          ldflags: "-w -s"
-          build_flags: "-gcflags=all='-l -B -C'"
+          build_command: "make"
+          build_flags: "build version {{ steps.syncommit_version.outputs.prop }}"
           md5sum: FALSE
